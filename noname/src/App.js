@@ -1,49 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import './App.css';
+import { startGame } from './gameLogic';  // Importing the game logic
 
 function App() {
-  const [theme, setTheme] = useState(''); // stores the theme input value
+  const [theme, setTheme] = useState("");        // Store the user's theme input
+  const [words, setWords] = useState([]);       // Store the generated words
+  const [loading, setLoading] = useState(false);  // Loading state indicator
+  const [error, setError] = useState(null);      // Error handler
 
-  // handles theme input change
-  const handleInputChange = (event) => {
-    setTheme(event.target.value);
+  const handleThemeChange = (event) => {
+    setTheme(event.target.value);  // Update theme as user types
   };
 
-  // handles start button click
-  const handleStartGame = () => {
-    if (theme) {
-      alert(`Game starting with theme: ${theme}`);
-      // Here you can add logic to generate a scramble game based on the theme
-    } else {
-      alert('Please enter a theme!');
+  // Function to handle submitting the theme and starting the game
+  const handleSubmit = async () => {
+    if (!theme) {
+      alert("Please enter a theme to generate words.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const generatedWords = await startGame(theme);
+      setWords(generatedWords);  // Update state with the generated words
+    } catch (err) {
+      setError(err.message);  // Catch and display any errors
+    } finally {
+      setLoading(false);  // Stop loading indicator
     }
   };
 
   return (
     <div className="App">
       <header>
-        <h1>Welcome to the Scramble Game</h1>
+        <h1>Word Scramble Game</h1>
       </header>
 
       <div className="container">
-        <p>Enter a theme or topic to get started:</p>
+        <p>Enter a theme to generate words:</p>
         <div className="searchbox-container">
           <input
             type="text"
-            id="themeInput"
-            placeholder="Enter a theme (e.g., Animals, Food, Countries)"
-            value={theme} // Controlled component
-            onChange={handleInputChange} // Update state on input change
+            value={theme}
+            onChange={handleThemeChange}
+            placeholder="Enter a theme (e.g., Animals, Food)"
           />
-          <button id="startGameButton" onClick={handleStartGame}>Start Game</button>
+          <button onClick={handleSubmit}>
+            {loading ? "Loading..." : "Generate Words"}
+          </button>
         </div>
-      </div>
 
-      <footer>
-        <p>&copy; 2024 Scramble Games. CSC372 Final Project. <br /> 
-          <a href="https://github.com/nurkhat18/CS372/tree/main/noname">Github Repo</a> 
-        </p>
-      </footer>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+
+        {/* Display the generated words */}
+        {words.length > 0 && (
+          <div>
+            <h2>Generated Words:</h2>
+            <ul>
+              {words.map((word, index) => (
+                <li key={index}>{word}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
