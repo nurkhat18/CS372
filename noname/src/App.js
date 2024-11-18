@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import { startGame } from './gameLogic';  // Importing the game logic
 
 function App() {
   const [theme, setTheme] = useState(''); // stores the theme input value
@@ -23,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Word Scramble Game</h1>
+        <h1>Welcome to the Scramble Game</h1>
       </header>
 
       <div className="container">
@@ -38,7 +37,13 @@ function App() {
           />
           <button id="startGameButton" onClick={handleStartGame}>Start Game</button>
         </div>
-    </div>
+      </div>
+
+      <footer>
+        <p>&copy; 2024 Scramble Games. CSC372 Final Project. <br /> 
+          <a href="https://github.com/nurkhat18/CS372/tree/main/noname">Github Repo</a> 
+        </p>
+      </footer>
     </div>
   );
 }
