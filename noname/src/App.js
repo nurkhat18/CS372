@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import './App.css';
 import { startGame } from './gameLogic';  // Importing the game logic
+import InputGrid from './Grid';
+import ScrambledWordContainer from "./ScrambledWordContainer";
 
 function App() {
   const [theme, setTheme] = useState("");        // Store the user's theme input
   const [words, setWords] = useState([]);       // Store the generated words
   const [loading, setLoading] = useState(false);  // Loading state indicator
   const [error, setError] = useState(null);      // Error handler
+  const [word] = useState('REACT'); // Hardcoded word for simplicity; replace or fetch dynamically
+  const scrambledWord = word.split('').sort(() => Math.random() - 0.5).join('');
 
   const handleThemeChange = (event) => {
     setTheme(event.target.value);  // Update theme as user types
@@ -66,6 +70,9 @@ function App() {
           </div>
         )}
       </div>
+      <ScrambledWordContainer scrambledWord={scrambledWord} />
+      <InputGrid wordLength={word.length} correctWord={word} />
+
 
       <footer>
         <p>&copy; 2024 Scramble Games. CSC372 Final Project. <br /> 
