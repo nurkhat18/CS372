@@ -1,66 +1,188 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+/* src/App.css */
+
+/* General Styles */
+body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent scrollbars due to canvas */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+
+.App {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  color: #333333; /* Dark text for better readability */
+  text-align: center;
+  z-index: 1; /* Ensure content is above the background */
+}
+
 header {
   text-align: center;
-  padding: 20px;
-  background-color: #4CAF50;
-  color: white;
+  padding: 20px 0;
+  background-color: transparent; /* Remove background to blend with animated background */
+  color: #333333;
 }
+
 h1 {
   font-size: 2.5rem;
   margin: 0;
+  font-weight: 700;
 }
+
 .container {
-  padding: 20px;
+  padding: 40px 20px;
   text-align: center;
+  position: relative;
+  z-index: 2; /* Ensure content is above the canvas */
 }
+
+p {
+  font-size: 1.2rem;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+/* Search Box Container */
 .searchbox-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
 }
-input[type="text"] {
-  padding: 10px;
-  font-size: 1.2rem;
-  width: 80%;
+
+.input-container {
+  position: relative;
+  width: 100%;
   max-width: 400px;
-  margin: 0 auto;
-  display: block;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  outline: none;
 }
+
+input[type="text"] {
+  padding: 15px 60px 15px 20px; /* Adjusted padding to make space for the button */
+  font-size: 1.1rem;
+  width: 100%;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.8); /* Increased opacity for better visibility */
+  color: #000000; /* Black text for better contrast */
+}
+
+input[type="text"]::placeholder {
+  color: #aaaaaa;
+}
+
 input[type="text"]:focus {
   border-color: #4CAF50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
 }
-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #4CAF50;
-  color: white;
+
+/* Arrow Button Styles */
+.arrow-button {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #000000; /* Black background */
   border: none;
-  border-radius: 5px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-button:hover {
-  background-color: #45a049;
+
+.arrow-button:hover {
+  background-color: #333333; /* Darker shade on hover */
+  transform: translateY(-50%) scale(1.05);
 }
-footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 15px;
+
+.arrow-button:active {
+  transform: translateY(-50%) scale(1);
+}
+
+.arrow-button:disabled {
+  background-color: #555555;
+  cursor: not-allowed;
+  transform: translateY(-50%) scale(1);
+}
+
+/* Arrow Icon Styles */
+.arrow-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+}
+
+/* Generated Words List */
+.word-list {
+  margin-top: 40px;
+}
+
+.word-list h2 {
+  font-size: 1.8rem;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.word-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.word-list li {
+  font-size: 1.2rem;
+  color: #333333;
+  margin: 8px 0;
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.word-list li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Error Message */
+.error {
+  color: #e74c3c;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .searchbox-container {
+    flex-direction: column;
+  }
+
+  .arrow-button {
+    position: relative;
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  input[type="text"] {
+    padding-right: 20px; /* Remove space for the button on smaller screens */
+  }
+}
+
+/* Matrix Background Canvas */
+.matrix-canvas {
   position: fixed;
-  bottom: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-}
-footer a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
+  height: 100%;
+  z-index: 0; /* Behind all content */
+  background-color: #ffffff; /* White background */
+  display: block; /* Remove any default inline spacing */
 }

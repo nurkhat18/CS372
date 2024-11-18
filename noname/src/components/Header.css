@@ -1,0 +1,14 @@
+/* src/components/Header.css */
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    color: #333333; /* Dark grey for better contrast */
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: 700;
+  }
+  

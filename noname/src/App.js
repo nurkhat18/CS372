@@ -1,6 +1,9 @@
+// src/App.js
 import React, { useState } from "react";
 import './App.css';
 import { startGame } from './gameLogic';  // Importing the game logic
+import MatrixBackground from './components/MatrixBackground'; // Import the Matrix background
+import Header from './components/Header'; // Import the Header component
 
 function App() {
   const [theme, setTheme] = useState("");        // Store the user's theme input
@@ -32,31 +35,79 @@ function App() {
     }
   };
 
+  // Handle Enter key press in the input field
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className="App">
+      {/* Matrix Background */}
+      <MatrixBackground />
+
+      {/* Main Content */}
       <header>
-        <h1>Word Scramble Game</h1>
+        <Header /> {/* Using the Header component */}
       </header>
 
       <div className="container">
         <p>Enter a theme to generate words:</p>
         <div className="searchbox-container">
-          <input
-            type="text"
-            value={theme}
-            onChange={handleThemeChange}
-            placeholder="Enter a theme (e.g., Animals, Food)"
-          />
-          <button onClick={handleSubmit}>
-            {loading ? "Loading..." : "Generate Words"}
-          </button>
+          <div className="input-container">
+            <input
+              type="text"
+              value={theme}
+              onChange={handleThemeChange}
+              onKeyPress={handleKeyPress}
+              placeholder="Enter a theme (e.g., Animals, Food)"
+            />
+            <button
+              className="arrow-button"
+              onClick={handleSubmit}
+              disabled={loading}
+              aria-label="Generate Words"
+            >
+              {loading ? (
+                // Spinner Icon
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                  <circle
+                    cx="25"
+                    cy="25"
+                    r="20"
+                    stroke="#808080"
+                    strokeWidth="5"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray="31.415, 31.415"
+                    transform="rotate(0 25 25)"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      type="rotate"
+                      repeatCount="indefinite"
+                      dur="1s"
+                      values="0 25 25;360 25 25"
+                      keyTimes="0;1"
+                    />
+                  </circle>
+                </svg>
+              ) : (
+                // Arrow Icon
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" fill="#ffffff" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
 
         {/* Display the generated words */}
         {words.length > 0 && (
-          <div>
+          <div className="word-list">
             <h2>Generated Words:</h2>
             <ul>
               {words.map((word, index) => (
@@ -66,6 +117,8 @@ function App() {
           </div>
         )}
       </div>
+
+      {/* Removed Footer */}
     </div>
   );
 }
