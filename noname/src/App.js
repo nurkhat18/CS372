@@ -4,20 +4,17 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>Welcome to the Scramble Game</h1>
       </header>
+      <
+        div class="container">
+        <p>Enter a theme or topic to get started:</p>
+        <div class="searchbox-container">
+            <input type="text" id="themeInput" placeholder="Enter a theme (e.g., Animals, Food, Countries)" />
+            <button id="startGameButton">Start Game</button>
+        </div>
+    </div>
     </div>
   );
 }
