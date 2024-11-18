@@ -1,0 +1,30 @@
+import React from 'react';
+import { useDrag } from 'react-dnd';
+
+const ScrambledLetter = ({ letter }) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'letter',
+    item: { letter },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
+  return (
+    <div
+      ref={drag}
+      style={{
+        padding: '8px',
+        margin: '4px',
+        border: '1px solid black',
+        display: 'inline-block',
+        cursor: 'move',
+        opacity: isDragging ? 0.5 : 1,
+      }}
+    >
+      {letter}
+    </div>
+  );
+};
+
+export default ScrambledLetter;
