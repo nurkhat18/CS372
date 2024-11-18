@@ -72,6 +72,13 @@ function App() {
       </div>
       <ScrambledWordContainer scrambledWord={scrambledWord} />
       <InputGrid wordLength={word.length} correctWord={word} />
+
+
+      <footer>
+        <p>&copy; 2024 Scramble Games. CSC372 Final Project. <br /> 
+          <a href="https://github.com/nurkhat18/CS372/tree/main/noname">Github Repo</a> 
+        </p>
+      </footer>
     </div>
   );
 }
