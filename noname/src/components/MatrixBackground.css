@@ -1,0 +1,14 @@
+/* src/components/MatrixBackground.css */
+
+/* Ensure the canvas covers the entire screen and stays behind all other content */
+.matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Behind all other content */
+    background-color: #ffffff; /* White background */
+    display: block; /* Remove any default inline spacing */
+  }
+  
